@@ -37,7 +37,7 @@ open class TappableView: View {
 // MARK: Tapping
 extension TappableView {
     
-    func tapped(_ newAction: @escaping () -> Void) {
+    public func tapped(_ newAction: @escaping () -> Void) {
         self.action = newAction
     }
     
