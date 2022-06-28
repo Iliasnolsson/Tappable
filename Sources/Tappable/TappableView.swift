@@ -21,6 +21,7 @@ open class TappableView: View {
     }
     
     private func setup() {
+        corners = .small
         backgroundColor = .systemBlue
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(press))
         gesture.minimumPressDuration = 0
