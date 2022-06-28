@@ -20,6 +20,7 @@ open class TitledTappableView: TappableView {
     
     private func construct() {
         addSubview(titleLabel)
+        titleLabel.textColor = .white
     }
     
     private func constrain() {
