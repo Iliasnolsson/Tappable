@@ -10,6 +10,10 @@ import GeneralHelper
 
 public class BounceTappableEffect: TappableEffect {
     
+    public init() {
+        
+    }
+    
     public func animate(_ view: TappableView, forState state: TappableView.TapState) {
         switch state {
         case .touchedDown, .touchedDownMovedInside:
