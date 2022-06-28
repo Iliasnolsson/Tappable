@@ -12,20 +12,12 @@ open class TappableView: View {
     
     public var effect: Effect?
     
-    public weak var delegate: TappableViewDelegate?
+    private var action: (() -> Void)?
     private(set) var tapState: TapState?
-    
-    public var corners: Corners {_corners}
-    private var _corners = Corners()
     
     override public init() {
         super.init()
         setup()
-    }
-    
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        reloadCorners()
     }
     
     private func setup() {
@@ -41,26 +33,12 @@ open class TappableView: View {
 
 }
 
-// MARK: Corners
-public extension TappableView {
-    
-    func setCorners(_ value: CGFloat, valueType: Corners.ValueType) {
-        setCorners(.init(value, valueType: valueType))
-    }
-    
-    func setCorners(_ newCorners: Corners) {
-        _corners = newCorners
-        reloadCorners()
-    }
-    
-    private func reloadCorners() {
-        layer.cornerRadius = corners.radius(forViewSize: bounds.size)
-    }
-    
-}
-
 // MARK: Tapping
 extension TappableView {
+    
+    func tapped(_ newAction: @escaping () -> Void) {
+        self.action = newAction
+    }
     
     private func setState(_ newState: TapState?) {
         if newState == tapState || tapState == .touchedDown && newState == .touchedDownMovedInside {return}
@@ -97,7 +75,7 @@ extension TappableView {
             break
         case .ended, .cancelled:
             if (tapState == .touchedDown || tapState == .touchedDownMovedInside) {
-                delegate?.tapped(self, recognizer: recognizer)
+                action?()
             }
             setState(nil)
             break
