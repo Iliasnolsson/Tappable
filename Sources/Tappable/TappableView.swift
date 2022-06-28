@@ -10,25 +10,60 @@ import UIKit
 
 open class TappableView: View {
     
-    var effect: TappableEffect?
+    public var effect: TappableEffect?
+    public weak var delegate: TappableViewDelegate?
     private(set) var tapState: TapState?
     
-    public weak var delegate: TappableViewDelegate?
+    public var corners: Corners {_corners}
+    private var _corners = Corners()
     
     override public init() {
         super.init()
         setup()
     }
     
+    open override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        reloadCorners()
+    }
+    
     private func setup() {
+        backgroundColor = .systemBlue
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(press))
         gesture.minimumPressDuration = 0
         addGestureRecognizer(gesture)
     }
     
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+}
+
+// MARK: Corners
+public extension TappableView {
+    
+    func setCorners(_ value: CGFloat, valueType: Corners.ValueType) {
+        setCorners(.init(value, valueType: valueType))
+    }
+    
+    func setCorners(_ newCorners: Corners) {
+        _corners = newCorners
+        reloadCorners()
+    }
+    
+    private func reloadCorners() {
+        layer.cornerRadius = corners.radius(forViewSize: bounds.size)
+    }
+    
+}
+
+// MARK: Tapping
+extension TappableView {
+    
     private func setState(_ newState: TapState?) {
         if newState == tapState || tapState == .touchedDown && newState == .touchedDownMovedInside {return}
-        var reportedState = {() -> TapState in
+        let reportedState = {() -> TapState in
             if let newState = newState {
                 return newState
             }
@@ -48,14 +83,6 @@ open class TappableView: View {
         }
     }
     
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-}
-
-// MARK: Gesture Target
-extension TappableView {
     
     @objc private func press(_ recognizer: UILongPressGestureRecognizer) {
         switch recognizer.state {
@@ -101,7 +128,6 @@ public extension TappableView {
             .touchedDownMovedOutside,
             .touchedUpInside,
             .touchedUpInside]}
-        
     }
     
 }
