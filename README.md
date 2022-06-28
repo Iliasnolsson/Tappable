@@ -5,6 +5,7 @@ Used to quickly create views with tap effects for use in both iOS & Mac. Aims to
 
 ```swift
 import Tappable
+
 var continueTappableView = TitledTappableView() 
 continueTappableView.effect = BounceTappableEffect()
 continueTappableView.titleLabel.text = "Continue"
