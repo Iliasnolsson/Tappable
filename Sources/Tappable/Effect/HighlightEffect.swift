@@ -10,7 +10,7 @@ import GeneralHelper
 
 extension TappableView {
     
-    class HighlightEffect: Effect {
+    public class HighlightEffect: Effect {
         
         private var touchDownColor: UIColor?
         
