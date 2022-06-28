@@ -39,12 +39,12 @@ extension TappableView {
         }
         
         public static var bounce: BounceEffect {.init()}
-        public static var bounceStrong: BounceEffect {.init(1.2)}
-        public static var bounceLight: BounceEffect {.init(0.8)}
+        public static var bounceStrong: BounceEffect {.init(effectMultiplier: 1.2)}
+        public static var bounceLight: BounceEffect {.init(effectMultiplier: 0.8)}
         
         public static var higlight: HighlightEffect {.init()}
-        public static var higlightStrong: HighlightEffect {.init(1.2)}
-        public static var higlightLight: HighlightEffect {.init(0.8)}
+        public static var higlightStrong: HighlightEffect {.init(effectMultiplier: 1.2)}
+        public static var higlightLight: HighlightEffect {.init(effectMultiplier: 0.8)}
     }
     
 }
