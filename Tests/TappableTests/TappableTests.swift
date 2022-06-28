@@ -1,5 +1,5 @@
 import XCTest
-@testable import Macable
+@testable import Tappable
 
 final class TappableTests: XCTestCase {
     func testExample() throws {
