@@ -10,7 +10,8 @@ import UIKit
 
 open class TappableView: View {
     
-    public var effect: TappableEffect?
+    public var effect: Effect?
+    
     public weak var delegate: TappableViewDelegate?
     private(set) var tapState: TapState?
     
