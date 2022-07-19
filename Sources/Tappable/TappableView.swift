@@ -5,7 +5,7 @@
 //  Created by Ilias Nikolaidis Olsson on 2022-06-28.
 //
 
-import GeneralHelper
+import Toolkit
 import UIKit
 
 open class TappableView: View {

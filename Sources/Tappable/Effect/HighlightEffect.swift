@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import GeneralHelper
+import Toolkit
 
 extension TappableView {
     
